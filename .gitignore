@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+data/
+assets/*.onnx
+assets/*.bin
+.DS_Store

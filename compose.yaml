@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: ai_video_dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data:Z
+    environment:
+      - DB_PATH=/app/data/factory.db
+    restart: unless-stopped
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: ai_video_n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./data/n8n:/home/node/.n8n:Z
+      - ./data:/data:Z
+    environment:
+      - GENERIC_TIMEZONE=Asia/Jakarta
+    restart: unless-stopped
